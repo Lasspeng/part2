@@ -1,4 +1,5 @@
 import React from 'react'
+import Course from './components/Course'
 
 const App = () => {
   const courses = [
@@ -62,19 +63,6 @@ const App = () => {
   )
 }
 
-const Course = ({courses}) => {
-  return (
-    <>
-      <ul>
-        {courses.parts.map(part =>
-          <li key={part.id}>
-            {part.name}: {part.exercises}
-          </li>
-        )}
-      </ul>
-    </>
-  )
-}
 
 const Sum = ({total}) => {
   return (
