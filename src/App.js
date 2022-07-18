@@ -1,74 +1,37 @@
-import React from 'react'
-import Course from './components/Course'
+import { useState } from 'react'
 
 const App = () => {
-  const courses = [
-    {
-      name: 'Half Stack application development',
-      id: 1,
-      parts: [
-        {
-          name: 'Fundamentals of React',
-          exercises: 10,
-          id: 1
-        },
-        {
-          name: 'Using props to pass data',
-          exercises: 7,
-          id: 2
-        },
-        {
-          name: 'State of a component',
-          exercises: 14,
-          id: 3
-        },
-        {
-          name: 'Redux',
-          exercises: 11,
-          id: 4
-        }
-      ]
-    }, 
-    {
-      name: 'Node.js',
-      id: 2,
-      parts: [
-        {
-          name: 'Routing',
-          exercises: 3,
-          id: 1
-        },
-        {
-          name: 'Middlewares',
-          exercises: 7,
-          id: 2
-        }
-      ]
-    }
-  ]
+  const [persons, setPersons] = useState([
+    { name: 'Arto Hellas' }
+  ]) 
+  const [newName, setNewName] = useState('')
 
-  const total1 = courses[0].parts.reduce((sum, currentValue) => sum += currentValue.exercises, 0)
-  const total2 = courses[1].parts.reduce((sum, currentValue) => sum += currentValue.exercises, 0)
+  const nameChanger = (event) => setNewName(event.target.value)
+
+  const addName = (event) => {
+    event.preventDefault()
+    const nameObject = {name: newName}
+    setPersons(persons.concat(nameObject))
+    setNewName('')
+  }
 
   return (
-    <>
-      <h1>{courses[0].name}</h1>
-      <Course courses={courses[0]} />
-      <Sum total={total1} />
-
-      <h1>{courses[1].name}</h1>
-      <Course courses={courses[1]}/>
-      <Sum total={total2}/>
-    </>
-  )
-}
-
-
-const Sum = ({total}) => {
-  return (
-    <>
-      <p><b>Total of {total} exercises</b></p>
-    </>
+    <div>
+      <h2>Phonebook</h2>
+      <form onSubmit={addName}>
+        <div>
+          name: <input value={newName} onChange={nameChanger} />
+        </div>
+        <div>
+          <button type="submit">add</button>
+        </div>
+      </form>
+      <h2>Numbers</h2>
+      <ul>
+        {persons.map(entry => 
+          <li key={entry.name}>{entry.name}</li>)}
+      </ul>
+    </div>
   )
 }
 
